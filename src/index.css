@@ -1,0 +1,21 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  
+}
+
+.logoImage {
+    width: 3.25rem;
+}
+
+.custom_link {
+  text-decoration: none;
+  color: #E0C21E;
+  cursor: pointer;
+  margin-left: 4px;
+}
+
+.custom_link:hover {
+  text-decoration: underline;
+}
