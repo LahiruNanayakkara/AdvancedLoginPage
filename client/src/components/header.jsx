@@ -17,6 +17,7 @@ const Header = () => {
       <Stack direction="row" justifyContent="flex-end">
         <Stack direction="row" alignItems="center" spacing={0}>
           <ToggleButton
+            size="small"
             color="primary"
             value="check"
             selected={themeMode === "dark"}

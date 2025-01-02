@@ -16,6 +16,7 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { validateEmail, validatePassword } from "../utils/validations";
 import { Link, useNavigate } from "react-router-dom";
 import { useUserStore } from "../store/userStore";
+import { loginAPI } from "../utils/api";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -52,24 +53,37 @@ const Login = () => {
     setPasswordError(null);
   };
 
-  const handleLoginSubmit = (e) => {
+  const handleLoginSubmit = async (e) => {
     e.preventDefault();
     if (!formdata.email && !formdata.password) {
       setEmailError("Email is required*");
       setPasswordError("Password is required*");
       return;
     }
-    if (!formdata.email) {
-      setEmailError("Email is required*");
+
+    const emailValidationError = validateEmail(formdata.email);
+    if (emailValidationError) {
+      return setEmailError(emailValidationError);
+    }
+
+    const passwordValidationError = validatePassword(formdata.password);
+    if (passwordValidationError) {
+      setPasswordError(passwordValidationError);
       return;
     }
-    if (!formdata.password) {
-      setPasswordError("Password is required*");
-      return;
+
+    try {
+      const res = await loginAPI(formdata);
+      const data = await res.json();
+      if (res.ok) {
+        login(data.data);
+        navigate("/");
+      } else {
+        console.log(data.message);
+      }
+    } catch (error) {
+      console.log(error.message);
     }
-    login(formdata);
-    console.log(formdata);
-    navigate("/");
   };
 
   return (
@@ -139,7 +153,7 @@ const Login = () => {
             variant="contained"
             color="primary"
             fullWidth
-            sx={{ paddingY: 1.95 }}
+            sx={{ paddingY: 1.75 }}
           >
             Login
           </Button>

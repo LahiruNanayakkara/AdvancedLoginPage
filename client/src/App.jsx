@@ -4,7 +4,7 @@ import Home from "./pages/home";
 import ProtectedRoute from "./components/protectedRoute";
 import Header from "./components/header";
 
-function App() {
+function App() { 
   return (
     <BrowserRouter>
       <Header />
