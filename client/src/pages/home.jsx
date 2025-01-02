@@ -17,6 +17,7 @@ const Home = () => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
+        paddingX: { xs: 2, sm: 4 },
       }}
     >
       <Stack direction="column" spacing={3}>
@@ -26,7 +27,12 @@ const Home = () => {
           </Link>
         </Stack>
         <Stack direction="column" spacing={1} alignItems={"center"}>
-          <Typography variant="h4" fontWeight={700} align="left">
+          <Typography
+            variant="h4"
+            fontSize={{ xs: 36, sm: 42 }}
+            fontWeight={700}
+            align="left"
+          >
             You&#39;re logged in
           </Typography>
           <Typography variant="body1" color="textSecondary" align="left">

@@ -17,6 +17,7 @@ import { validateEmail, validatePassword } from "../utils/validations";
 import { Link, useNavigate } from "react-router-dom";
 import { useUserStore } from "../store/userStore";
 import { loginAPI } from "../utils/api";
+import { useSnackbarStore } from "../store/snackbarStore";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -29,6 +30,9 @@ const Login = () => {
   const navigate = useNavigate();
   const { login } = useUserStore((state) => ({
     login: state.login,
+  }));
+  const { openSnackbar } = useSnackbarStore((state) => ({
+    openSnackbar: state.openSnackbar,
   }));
 
   const handleShowPassword = () => {
@@ -77,12 +81,13 @@ const Login = () => {
       const data = await res.json();
       if (res.ok) {
         login(data.data);
+        openSnackbar(data.message, "success");
         navigate("/");
       } else {
-        console.log(data.message);
+        openSnackbar(data.message, "error");
       }
     } catch (error) {
-      console.log(error.message);
+      openSnackbar(error.message, "error");
     }
   };
 
@@ -94,6 +99,7 @@ const Login = () => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
+        paddingX: { xs: 2, sm: 4 },
       }}
     >
       <Stack direction="column" spacing={3}>
@@ -103,7 +109,12 @@ const Login = () => {
           </Link>
         </Stack>
         <Stack direction="column" spacing={1} alignItems={"center"}>
-          <Typography variant="h4" fontWeight={700} align="left">
+          <Typography
+            variant="h4"
+            fontSize={{ xs: 36, sm: 42 }}
+            fontWeight={700}
+            align="left"
+          >
             Welcome Back
           </Typography>
           <Typography variant="body1" color="textSecondary" align="left">

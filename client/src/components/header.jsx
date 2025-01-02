@@ -12,7 +12,7 @@ const Header = () => {
     <AppBar
       position="fixed"
       variant="outline"
-      sx={{ padding: 1, border: 0, backgroundColor: "transparent" }}
+      sx={{ padding: 2, border: 0, backgroundColor: "transparent" }}
     >
       <Stack direction="row" justifyContent="flex-end">
         <Stack direction="row" alignItems="center" spacing={0}>
